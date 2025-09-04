@@ -12,8 +12,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   ResponsiveContainer,

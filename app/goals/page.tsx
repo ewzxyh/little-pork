@@ -24,7 +24,6 @@ import {
 } from "@/components/ui/dialog";
 import {
   Target,
-  TrendingUp,
   Calendar,
   DollarSign,
   PlusCircle,
@@ -35,7 +34,6 @@ import {
   AlertCircle,
   Users,
   Trophy,
-  Zap,
 } from "lucide-react";
 
 // Mock data baseado na meta real fornecida
@@ -117,7 +115,6 @@ const mockGoals = [
 ];
 
 const categories = ["Poupança", "Dívidas", "Emergência", "Lazer", "Educação", "Saúde", "Casa"];
-const priorities = ["low", "medium", "high"];
 const users = ["Enzo", "Letícia", "Ambos"];
 
 export default function GoalsPage() {
