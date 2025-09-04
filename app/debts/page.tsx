@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -56,13 +56,13 @@ const mockDebts = [
       { month: "Abril", paid: false, amount: 2002.98 },
       { month: "Maio", paid: false, amount: 2002.98 },
       { month: "Junho", paid: false, amount: 2002.98 },
-    ]
+    ],
   },
   {
     id: 2,
     description: "Empréstimo Enzo",
-    totalAmount: 4340.50,
-    remainingAmount: 4340.50,
+    totalAmount: 4340.5,
+    remainingAmount: 4340.5,
     monthlyPayment: 723.42,
     remainingMonths: 6,
     interestRate: 2.0,
@@ -77,14 +77,14 @@ const mockDebts = [
       { month: "Abril", paid: false, amount: 723.42 },
       { month: "Maio", paid: false, amount: 723.42 },
       { month: "Junho", paid: false, amount: 723.42 },
-    ]
+    ],
   },
   {
     id: 3,
     description: "Fotos da Faculdade (2/5)",
-    totalAmount: 1270.00,
-    remainingAmount: 1016.00,
-    monthlyPayment: 254.00,
+    totalAmount: 1270.0,
+    remainingAmount: 1016.0,
+    monthlyPayment: 254.0,
     remainingMonths: 4,
     interestRate: 0,
     dueDate: "2024-05-15",
@@ -92,12 +92,12 @@ const mockDebts = [
     user: "Enzo",
     status: "active" as const,
     paymentHistory: [
-      { month: "Janeiro", paid: true, amount: 254.00 },
-      { month: "Fevereiro", paid: false, amount: 254.00 },
-      { month: "Março", paid: false, amount: 254.00 },
-      { month: "Abril", paid: false, amount: 254.00 },
-      { month: "Maio", paid: false, amount: 254.00 },
-    ]
+      { month: "Janeiro", paid: true, amount: 254.0 },
+      { month: "Fevereiro", paid: false, amount: 254.0 },
+      { month: "Março", paid: false, amount: 254.0 },
+      { month: "Abril", paid: false, amount: 254.0 },
+      { month: "Maio", paid: false, amount: 254.0 },
+    ],
   },
   {
     id: 4,
@@ -117,7 +117,7 @@ const mockDebts = [
       { month: "Março", paid: true, amount: 142.34 },
       { month: "Abril", paid: true, amount: 142.34 },
       { month: "Maio", paid: false, amount: 142.34 },
-    ]
+    ],
   },
 ];
 
@@ -140,13 +140,22 @@ export default function DebtsPage() {
 
   const filteredDebts = mockDebts.filter((debt) => {
     const matchesUser = selectedUser === "all" || debt.user === selectedUser;
-    const matchesStatus = selectedStatus === "all" || debt.status === selectedStatus;
+    const matchesStatus =
+      selectedStatus === "all" || debt.status === selectedStatus;
     return matchesUser && matchesStatus;
   });
 
-  const totalDebt = filteredDebts.reduce((sum, debt) => sum + debt.remainingAmount, 0);
-  const totalMonthlyPayments = filteredDebts.reduce((sum, debt) => sum + debt.monthlyPayment, 0);
-  const avgInterestRate = filteredDebts.reduce((sum, debt) => sum + debt.interestRate, 0) / filteredDebts.length;
+  const totalDebt = filteredDebts.reduce(
+    (sum, debt) => sum + debt.remainingAmount,
+    0,
+  );
+  const totalMonthlyPayments = filteredDebts.reduce(
+    (sum, debt) => sum + debt.monthlyPayment,
+    0,
+  );
+  const avgInterestRate =
+    filteredDebts.reduce((sum, debt) => sum + debt.interestRate, 0) /
+    filteredDebts.length;
 
   const handleAddDebt = () => {
     console.log("Nova dívida:", newDebt);
@@ -175,9 +184,12 @@ export default function DebtsPage() {
 
   const getUrgencyColor = (level: string) => {
     switch (level) {
-      case "high": return "text-red-600 bg-red-50 border-red-200";
-      case "medium": return "text-orange-600 bg-orange-50 border-orange-200";
-      default: return "text-blue-600 bg-blue-50 border-blue-200";
+      case "high":
+        return "text-red-600 bg-red-50 border-red-200";
+      case "medium":
+        return "text-orange-600 bg-orange-50 border-orange-200";
+      default:
+        return "text-blue-600 bg-blue-50 border-blue-200";
     }
   };
 
@@ -188,8 +200,12 @@ export default function DebtsPage() {
         <div className="flex items-center gap-4">
           <SidebarTrigger />
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Dívidas & Empréstimos</h1>
-            <p className="text-gray-600">Gerencie suas obrigações financeiras</p>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Dívidas & Empréstimos
+            </h1>
+            <p className="text-gray-600">
+              Gerencie suas obrigações financeiras
+            </p>
           </div>
         </div>
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
@@ -209,7 +225,9 @@ export default function DebtsPage() {
                 <Input
                   id="description"
                   value={newDebt.description}
-                  onChange={(e) => setNewDebt({...newDebt, description: e.target.value})}
+                  onChange={(e) =>
+                    setNewDebt({ ...newDebt, description: e.target.value })
+                  }
                   placeholder="Ex: Empréstimo Banco X, Financiamento..."
                 />
               </div>
@@ -222,7 +240,9 @@ export default function DebtsPage() {
                     type="number"
                     step="0.01"
                     value={newDebt.totalAmount}
-                    onChange={(e) => setNewDebt({...newDebt, totalAmount: e.target.value})}
+                    onChange={(e) =>
+                      setNewDebt({ ...newDebt, totalAmount: e.target.value })
+                    }
                     placeholder="0,00"
                   />
                 </div>
@@ -233,7 +253,9 @@ export default function DebtsPage() {
                     type="number"
                     step="0.01"
                     value={newDebt.monthlyPayment}
-                    onChange={(e) => setNewDebt({...newDebt, monthlyPayment: e.target.value})}
+                    onChange={(e) =>
+                      setNewDebt({ ...newDebt, monthlyPayment: e.target.value })
+                    }
                     placeholder="0,00"
                   />
                 </div>
@@ -246,7 +268,12 @@ export default function DebtsPage() {
                     id="remainingMonths"
                     type="number"
                     value={newDebt.remainingMonths}
-                    onChange={(e) => setNewDebt({...newDebt, remainingMonths: e.target.value})}
+                    onChange={(e) =>
+                      setNewDebt({
+                        ...newDebt,
+                        remainingMonths: e.target.value,
+                      })
+                    }
                     placeholder="12"
                   />
                 </div>
@@ -257,7 +284,9 @@ export default function DebtsPage() {
                     type="number"
                     step="0.01"
                     value={newDebt.interestRate}
-                    onChange={(e) => setNewDebt({...newDebt, interestRate: e.target.value})}
+                    onChange={(e) =>
+                      setNewDebt({ ...newDebt, interestRate: e.target.value })
+                    }
                     placeholder="2,5"
                   />
                 </div>
@@ -266,9 +295,11 @@ export default function DebtsPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="user">Responsável</Label>
-                  <Select 
-                    value={newDebt.user} 
-                    onValueChange={(value) => setNewDebt({...newDebt, user: value})}
+                  <Select
+                    value={newDebt.user}
+                    onValueChange={(value) =>
+                      setNewDebt({ ...newDebt, user: value })
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Selecione o responsável" />
@@ -288,7 +319,9 @@ export default function DebtsPage() {
                     id="dueDate"
                     type="date"
                     value={newDebt.dueDate}
-                    onChange={(e) => setNewDebt({...newDebt, dueDate: e.target.value})}
+                    onChange={(e) =>
+                      setNewDebt({ ...newDebt, dueDate: e.target.value })
+                    }
                   />
                 </div>
               </div>
@@ -298,19 +331,31 @@ export default function DebtsPage() {
                   type="checkbox"
                   id="isShared"
                   checked={newDebt.isShared}
-                  onChange={(e) => setNewDebt({...newDebt, isShared: e.target.checked})}
+                  onChange={(e) =>
+                    setNewDebt({ ...newDebt, isShared: e.target.checked })
+                  }
                   className="rounded border-gray-300"
                   aria-describedby="shared-description"
+                  title="Dívida compartilhada (dividir valor)"
+                  aria-label="Dívida compartilhada (dividir valor)"
                 />
-                <Label htmlFor="isShared" className="text-sm font-normal" id="shared-description">
+                <Label
+                  htmlFor="isShared"
+                  className="text-sm font-normal"
+                  id="shared-description"
+                >
                   Dívida compartilhada (dividir valor)
                 </Label>
               </div>
 
-              <Button 
-                onClick={handleAddDebt} 
+              <Button
+                onClick={handleAddDebt}
                 className="w-full bg-blue-600 hover:bg-blue-700"
-                disabled={!newDebt.description || !newDebt.totalAmount || !newDebt.monthlyPayment}
+                disabled={
+                  !newDebt.description ||
+                  !newDebt.totalAmount ||
+                  !newDebt.monthlyPayment
+                }
               >
                 Adicionar Dívida
               </Button>
@@ -323,12 +368,15 @@ export default function DebtsPage() {
       <div className="grid gap-4 grid-cols-1 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total em Dívidas</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total em Dívidas
+            </CardTitle>
             <CreditCard className="h-4 w-4 text-red-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-red-600">
-              R$ {totalDebt.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+              R${" "}
+              {totalDebt.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
             </div>
             <p className="text-xs text-gray-600">
               {filteredDebts.length} dívidas ativas
@@ -338,16 +386,19 @@ export default function DebtsPage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Pagamento Mensal</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Pagamento Mensal
+            </CardTitle>
             <Calendar className="h-4 w-4 text-orange-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-orange-600">
-              R$ {totalMonthlyPayments.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+              R${" "}
+              {totalMonthlyPayments.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+              })}
             </div>
-            <p className="text-xs text-gray-600">
-              Comprometimento mensal
-            </p>
+            <p className="text-xs text-gray-600">Comprometimento mensal</p>
           </CardContent>
         </Card>
 
@@ -360,9 +411,7 @@ export default function DebtsPage() {
             <div className="text-2xl font-bold text-blue-600">
               {avgInterestRate.toFixed(1)}%
             </div>
-            <p className="text-xs text-gray-600">
-              Taxa de juros média
-            </p>
+            <p className="text-xs text-gray-600">Taxa de juros média</p>
           </CardContent>
         </Card>
 
@@ -373,11 +422,15 @@ export default function DebtsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              {Math.round(filteredDebts.reduce((sum, debt) => sum + debt.remainingMonths, 0) / filteredDebts.length)} meses
+              {Math.round(
+                filteredDebts.reduce(
+                  (sum, debt) => sum + debt.remainingMonths,
+                  0,
+                ) / filteredDebts.length,
+              )}{" "}
+              meses
             </div>
-            <p className="text-xs text-gray-600">
-              Tempo médio restante
-            </p>
+            <p className="text-xs text-gray-600">Tempo médio restante</p>
           </CardContent>
         </Card>
       </div>
@@ -430,15 +483,24 @@ export default function DebtsPage() {
       {/* Lista de Dívidas */}
       <div className="grid gap-4">
         {filteredDebts.map((debt) => {
-          const progressPercentage = getProgressPercentage(debt.totalAmount, debt.remainingAmount);
+          const progressPercentage = getProgressPercentage(
+            debt.totalAmount,
+            debt.remainingAmount,
+          );
           const urgencyLevel = getUrgencyLevel(debt.remainingMonths);
           const urgencyColor = getUrgencyColor(urgencyLevel);
 
           return (
-            <Card key={debt.id} className={`border-l-4 ${
-              urgencyLevel === "high" ? "border-l-red-500" :
-              urgencyLevel === "medium" ? "border-l-orange-500" : "border-l-blue-500"
-            }`}>
+            <Card
+              key={debt.id}
+              className={`border-l-4 ${
+                urgencyLevel === "high"
+                  ? "border-l-red-500"
+                  : urgencyLevel === "medium"
+                    ? "border-l-orange-500"
+                    : "border-l-blue-500"
+              }`}
+            >
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -446,16 +508,29 @@ export default function DebtsPage() {
                       <CreditCard className="h-4 w-4" />
                     </div>
                     <div>
-                      <CardTitle className="text-lg">{debt.description}</CardTitle>
+                      <CardTitle className="text-lg">
+                        {debt.description}
+                      </CardTitle>
                       <div className="flex items-center gap-4 mt-1">
-                        <Badge variant="outline" className="flex items-center gap-1">
+                        <Badge
+                          variant="outline"
+                          className="flex items-center gap-1"
+                        >
                           <Users className="h-3 w-3" />
                           {debt.user}
                         </Badge>
                         {debt.isShared && (
                           <Badge variant="secondary">Compartilhada</Badge>
                         )}
-                        <Badge variant={urgencyLevel === "high" ? "destructive" : urgencyLevel === "medium" ? "default" : "secondary"}>
+                        <Badge
+                          variant={
+                            urgencyLevel === "high"
+                              ? "destructive"
+                              : urgencyLevel === "medium"
+                                ? "default"
+                                : "secondary"
+                          }
+                        >
                           {debt.remainingMonths} meses restantes
                         </Badge>
                       </div>
@@ -465,7 +540,11 @@ export default function DebtsPage() {
                     <Button variant="ghost" size="sm">
                       <Edit className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-red-600 hover:text-red-700"
+                    >
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -476,19 +555,28 @@ export default function DebtsPage() {
                   <div>
                     <div className="text-sm text-gray-600">Valor Total</div>
                     <div className="text-lg font-semibold">
-                      R$ {debt.totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      R${" "}
+                      {debt.totalAmount.toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
                   <div>
                     <div className="text-sm text-gray-600">Valor Restante</div>
                     <div className="text-lg font-semibold text-red-600">
-                      R$ {debt.remainingAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      R${" "}
+                      {debt.remainingAmount.toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
                   <div>
                     <div className="text-sm text-gray-600">Parcela Mensal</div>
                     <div className="text-lg font-semibold text-orange-600">
-                      R$ {debt.monthlyPayment.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      R${" "}
+                      {debt.monthlyPayment.toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
                   <div>
@@ -510,7 +598,8 @@ export default function DebtsPage() {
                 <div className="flex items-center justify-between pt-2 border-t">
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Calendar className="h-4 w-4" />
-                    Vencimento: {new Date(debt.dueDate).toLocaleDateString('pt-BR')}
+                    Vencimento:{" "}
+                    {new Date(debt.dueDate).toLocaleDateString("pt-BR")}
                   </div>
                   {urgencyLevel === "high" && (
                     <div className="flex items-center gap-1 text-red-600 text-sm">
@@ -530,7 +619,9 @@ export default function DebtsPage() {
           <CardContent className="text-center py-12">
             <CheckCircle2 className="h-16 w-16 mx-auto mb-4 text-green-600 opacity-50" />
             <h3 className="text-lg font-semibold mb-2">Parabéns!</h3>
-            <p className="text-gray-600 mb-4">Você não possui dívidas ativas no momento</p>
+            <p className="text-gray-600 mb-4">
+              Você não possui dívidas ativas no momento
+            </p>
             <Button className="bg-blue-600 hover:bg-blue-700">
               <PlusCircle className="mr-2 h-4 w-4" />
               Adicionar Dívida

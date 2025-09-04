@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -42,8 +42,8 @@ const mockGoals = [
     id: 1,
     title: "Guardar R$ 50.000 em 12 meses",
     description: "Meta de poupança para emergências e investimentos",
-    targetAmount: 50000.00,
-    currentAmount: 2500.00,
+    targetAmount: 50000.0,
+    currentAmount: 2500.0,
     targetDate: "2024-12-31",
     startDate: "2024-01-01",
     isShared: true,
@@ -53,17 +53,17 @@ const mockGoals = [
     user: "Ambos",
     monthlyTarget: 4166.67,
     progressHistory: [
-      { month: "Janeiro", target: 4166.67, achieved: 2500.00, percentage: 60 },
+      { month: "Janeiro", target: 4166.67, achieved: 2500.0, percentage: 60 },
       { month: "Fevereiro", target: 4166.67, achieved: 0, percentage: 0 },
       { month: "Março", target: 4166.67, achieved: 0, percentage: 0 },
-    ]
+    ],
   },
   {
     id: 2,
     title: "Quitar Empréstimos",
     description: "Eliminar todas as dívidas pessoais",
     targetAmount: 18511.76,
-    currentAmount: 5000.00,
+    currentAmount: 5000.0,
     targetDate: "2024-07-31",
     startDate: "2024-01-01",
     isShared: false,
@@ -73,15 +73,15 @@ const mockGoals = [
     user: "Ambos",
     monthlyTarget: 2644.54,
     progressHistory: [
-      { month: "Janeiro", target: 2644.54, achieved: 5000.00, percentage: 189 },
-    ]
+      { month: "Janeiro", target: 2644.54, achieved: 5000.0, percentage: 189 },
+    ],
   },
   {
     id: 3,
     title: "Fundo de Emergência",
     description: "6 meses de gastos em reserva",
-    targetAmount: 25000.00,
-    currentAmount: 1200.00,
+    targetAmount: 25000.0,
+    currentAmount: 1200.0,
     targetDate: "2024-06-30",
     startDate: "2024-01-01",
     isShared: true,
@@ -89,17 +89,17 @@ const mockGoals = [
     status: "active" as const,
     priority: "medium" as const,
     user: "Ambos",
-    monthlyTarget: 4000.00,
+    monthlyTarget: 4000.0,
     progressHistory: [
-      { month: "Janeiro", target: 4000.00, achieved: 1200.00, percentage: 30 },
-    ]
+      { month: "Janeiro", target: 4000.0, achieved: 1200.0, percentage: 30 },
+    ],
   },
   {
     id: 4,
     title: "Viagem de Férias",
     description: "Europa - 15 dias",
-    targetAmount: 15000.00,
-    currentAmount: 800.00,
+    targetAmount: 15000.0,
+    currentAmount: 800.0,
     targetDate: "2024-07-01",
     startDate: "2024-01-01",
     isShared: true,
@@ -109,12 +109,20 @@ const mockGoals = [
     user: "Ambos",
     monthlyTarget: 2142.86,
     progressHistory: [
-      { month: "Janeiro", target: 2142.86, achieved: 800.00, percentage: 37 },
-    ]
+      { month: "Janeiro", target: 2142.86, achieved: 800.0, percentage: 37 },
+    ],
   },
 ];
 
-const categories = ["Poupança", "Dívidas", "Emergência", "Lazer", "Educação", "Saúde", "Casa"];
+const categories = [
+  "Poupança",
+  "Dívidas",
+  "Emergência",
+  "Lazer",
+  "Educação",
+  "Saúde",
+  "Casa",
+];
 const users = ["Enzo", "Letícia", "Ambos"];
 
 export default function GoalsPage() {
@@ -128,21 +136,31 @@ export default function GoalsPage() {
     targetAmount: "",
     targetDate: "",
     category: "",
-    priority: "medium" as const,
+    priority: "medium" as "low" | "medium" | "high",
     user: "",
     isShared: false,
   });
 
   const filteredGoals = mockGoals.filter((goal) => {
-    const matchesCategory = selectedCategory === "all" || goal.category === selectedCategory;
-    const matchesPriority = selectedPriority === "all" || goal.priority === selectedPriority;
-    const matchesStatus = selectedStatus === "all" || goal.status === selectedStatus;
+    const matchesCategory =
+      selectedCategory === "all" || goal.category === selectedCategory;
+    const matchesPriority =
+      selectedPriority === "all" || goal.priority === selectedPriority;
+    const matchesStatus =
+      selectedStatus === "all" || goal.status === selectedStatus;
     return matchesCategory && matchesPriority && matchesStatus;
   });
 
-  const totalTargetAmount = filteredGoals.reduce((sum, goal) => sum + goal.targetAmount, 0);
-  const totalCurrentAmount = filteredGoals.reduce((sum, goal) => sum + goal.currentAmount, 0);
-  const overallProgress = totalTargetAmount > 0 ? (totalCurrentAmount / totalTargetAmount) * 100 : 0;
+  const totalTargetAmount = filteredGoals.reduce(
+    (sum, goal) => sum + goal.targetAmount,
+    0,
+  );
+  const totalCurrentAmount = filteredGoals.reduce(
+    (sum, goal) => sum + goal.currentAmount,
+    0,
+  );
+  const overallProgress =
+    totalTargetAmount > 0 ? (totalCurrentAmount / totalTargetAmount) * 100 : 0;
 
   const handleAddGoal = () => {
     console.log("Nova meta:", newGoal);
@@ -165,17 +183,23 @@ export default function GoalsPage() {
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "high": return "text-red-600 bg-red-50 border-red-200";
-      case "medium": return "text-orange-600 bg-orange-50 border-orange-200";
-      default: return "text-blue-600 bg-blue-50 border-blue-200";
+      case "high":
+        return "text-red-600 bg-red-50 border-red-200";
+      case "medium":
+        return "text-orange-600 bg-orange-50 border-orange-200";
+      default:
+        return "text-blue-600 bg-blue-50 border-blue-200";
     }
   };
 
   const getPriorityIcon = (priority: string) => {
     switch (priority) {
-      case "high": return AlertCircle;
-      case "medium": return Clock;
-      default: return Target;
+      case "high":
+        return AlertCircle;
+      case "medium":
+        return Clock;
+      default:
+        return Target;
     }
   };
 
@@ -194,7 +218,9 @@ export default function GoalsPage() {
         <div className="flex items-center gap-4">
           <SidebarTrigger />
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Metas Financeiras</h1>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Metas Financeiras
+            </h1>
             <p className="text-gray-600">Planeje e acompanhe seus objetivos</p>
           </div>
         </div>
@@ -215,7 +241,9 @@ export default function GoalsPage() {
                 <Input
                   id="title"
                   value={newGoal.title}
-                  onChange={(e) => setNewGoal({...newGoal, title: e.target.value})}
+                  onChange={(e) =>
+                    setNewGoal({ ...newGoal, title: e.target.value })
+                  }
                   placeholder="Ex: Guardar para viagem, Casa própria..."
                 />
               </div>
@@ -225,7 +253,9 @@ export default function GoalsPage() {
                 <Input
                   id="description"
                   value={newGoal.description}
-                  onChange={(e) => setNewGoal({...newGoal, description: e.target.value})}
+                  onChange={(e) =>
+                    setNewGoal({ ...newGoal, description: e.target.value })
+                  }
                   placeholder="Descreva sua meta em detalhes"
                 />
               </div>
@@ -238,7 +268,9 @@ export default function GoalsPage() {
                     type="number"
                     step="0.01"
                     value={newGoal.targetAmount}
-                    onChange={(e) => setNewGoal({...newGoal, targetAmount: e.target.value})}
+                    onChange={(e) =>
+                      setNewGoal({ ...newGoal, targetAmount: e.target.value })
+                    }
                     placeholder="50000,00"
                   />
                 </div>
@@ -248,7 +280,9 @@ export default function GoalsPage() {
                     id="targetDate"
                     type="date"
                     value={newGoal.targetDate}
-                    onChange={(e) => setNewGoal({...newGoal, targetDate: e.target.value})}
+                    onChange={(e) =>
+                      setNewGoal({ ...newGoal, targetDate: e.target.value })
+                    }
                   />
                 </div>
               </div>
@@ -256,9 +290,11 @@ export default function GoalsPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="category">Categoria</Label>
-                  <Select 
-                    value={newGoal.category} 
-                    onValueChange={(value) => setNewGoal({...newGoal, category: value})}
+                  <Select
+                    value={newGoal.category}
+                    onValueChange={(value) =>
+                      setNewGoal({ ...newGoal, category: value })
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Selecione a categoria" />
@@ -274,10 +310,10 @@ export default function GoalsPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="priority">Prioridade</Label>
-                  <Select 
-                    value={newGoal.priority} 
-                    onValueChange={(value: "low" | "medium" | "high") => 
-                      setNewGoal({...newGoal, priority: value})
+                  <Select
+                    value={newGoal.priority}
+                    onValueChange={(value: "low" | "medium" | "high") =>
+                      setNewGoal({ ...newGoal, priority: value })
                     }
                   >
                     <SelectTrigger>
@@ -294,9 +330,11 @@ export default function GoalsPage() {
 
               <div className="space-y-2">
                 <Label htmlFor="user">Responsável</Label>
-                <Select 
-                  value={newGoal.user} 
-                  onValueChange={(value) => setNewGoal({...newGoal, user: value})}
+                <Select
+                  value={newGoal.user}
+                  onValueChange={(value) =>
+                    setNewGoal({ ...newGoal, user: value })
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione o responsável" />
@@ -316,19 +354,29 @@ export default function GoalsPage() {
                   type="checkbox"
                   id="isShared"
                   checked={newGoal.isShared}
-                  onChange={(e) => setNewGoal({...newGoal, isShared: e.target.checked})}
+                  onChange={(e) =>
+                    setNewGoal({ ...newGoal, isShared: e.target.checked })
+                  }
                   className="rounded border-gray-300"
                   aria-describedby="shared-goal-description"
+                  title="Meta compartilhada do casal"
+                  aria-label="Meta compartilhada do casal"
                 />
-                <Label htmlFor="isShared" className="text-sm font-normal" id="shared-goal-description">
+                <Label
+                  htmlFor="isShared"
+                  className="text-sm font-normal"
+                  id="shared-goal-description"
+                >
                   Meta compartilhada do casal
                 </Label>
               </div>
 
-              <Button 
-                onClick={handleAddGoal} 
+              <Button
+                onClick={handleAddGoal}
                 className="w-full bg-blue-600 hover:bg-blue-700"
-                disabled={!newGoal.title || !newGoal.targetAmount || !newGoal.targetDate}
+                disabled={
+                  !newGoal.title || !newGoal.targetAmount || !newGoal.targetDate
+                }
               >
                 Criar Meta
               </Button>
@@ -341,7 +389,9 @@ export default function GoalsPage() {
       <div className="grid gap-4 grid-cols-1 md:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Progresso Geral</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Progresso Geral
+            </CardTitle>
             <Target className="h-4 w-4 text-blue-600" />
           </CardHeader>
           <CardContent>
@@ -362,23 +412,29 @@ export default function GoalsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              R$ {totalCurrentAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+              R${" "}
+              {totalCurrentAmount.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+              })}
             </div>
             <p className="text-xs text-gray-600">
-              De R$ {totalTargetAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+              De R${" "}
+              {totalTargetAmount.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+              })}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Metas Concluídas</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Metas Concluídas
+            </CardTitle>
             <Trophy className="h-4 w-4 text-yellow-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-yellow-600">
-              0
-            </div>
+            <div className="text-2xl font-bold text-yellow-600">0</div>
             <p className="text-xs text-gray-600">
               Nenhuma meta concluída ainda
             </p>
@@ -392,7 +448,11 @@ export default function GoalsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-orange-600">
-              R$ {(totalTargetAmount - totalCurrentAmount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+              R${" "}
+              {(totalTargetAmount - totalCurrentAmount).toLocaleString(
+                "pt-BR",
+                { minimumFractionDigits: 2 },
+              )}
             </div>
             <p className="text-xs text-gray-600">
               Para completar todas as metas
@@ -413,7 +473,10 @@ export default function GoalsPage() {
           <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
             <div className="space-y-2">
               <Label>Categoria</Label>
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <Select
+                value={selectedCategory}
+                onValueChange={setSelectedCategory}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -430,7 +493,10 @@ export default function GoalsPage() {
 
             <div className="space-y-2">
               <Label>Prioridade</Label>
-              <Select value={selectedPriority} onValueChange={setSelectedPriority}>
+              <Select
+                value={selectedPriority}
+                onValueChange={setSelectedPriority}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -464,17 +530,26 @@ export default function GoalsPage() {
       {/* Lista de Metas */}
       <div className="grid gap-4">
         {filteredGoals.map((goal) => {
-          const progressPercentage = getProgressPercentage(goal.currentAmount, goal.targetAmount);
+          const progressPercentage = getProgressPercentage(
+            goal.currentAmount,
+            goal.targetAmount,
+          );
           const priorityColor = getPriorityColor(goal.priority);
           const PriorityIcon = getPriorityIcon(goal.priority);
           const daysRemaining = getDaysRemaining(goal.targetDate);
           const remainingAmount = goal.targetAmount - goal.currentAmount;
 
           return (
-            <Card key={goal.id} className={`border-l-4 ${
-              goal.priority === "high" ? "border-l-red-500" :
-              goal.priority === "medium" ? "border-l-orange-500" : "border-l-blue-500"
-            }`}>
+            <Card
+              key={goal.id}
+              className={`border-l-4 ${
+                goal.priority === "high"
+                  ? "border-l-red-500"
+                  : goal.priority === "medium"
+                    ? "border-l-orange-500"
+                    : "border-l-blue-500"
+              }`}
+            >
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -483,23 +558,41 @@ export default function GoalsPage() {
                     </div>
                     <div>
                       <CardTitle className="text-lg">{goal.title}</CardTitle>
-                      <p className="text-sm text-gray-600 mt-1">{goal.description}</p>
+                      <p className="text-sm text-gray-600 mt-1">
+                        {goal.description}
+                      </p>
                       <div className="flex items-center gap-4 mt-2">
-                        <Badge variant="outline" className="flex items-center gap-1">
+                        <Badge
+                          variant="outline"
+                          className="flex items-center gap-1"
+                        >
                           <Users className="h-3 w-3" />
                           {goal.user}
                         </Badge>
                         <Badge variant="secondary">{goal.category}</Badge>
                         {goal.isShared && (
-                          <Badge variant="default" className="bg-blue-100 text-blue-800">
+                          <Badge
+                            variant="default"
+                            className="bg-blue-100 text-blue-800"
+                          >
                             Compartilhada
                           </Badge>
                         )}
-                        <Badge variant={
-                          goal.priority === "high" ? "destructive" :
-                          goal.priority === "medium" ? "default" : "secondary"
-                        }>
-                          {goal.priority === "high" ? "Alta" : goal.priority === "medium" ? "Média" : "Baixa"} prioridade
+                        <Badge
+                          variant={
+                            goal.priority === "high"
+                              ? "destructive"
+                              : goal.priority === "medium"
+                                ? "default"
+                                : "secondary"
+                          }
+                        >
+                          {goal.priority === "high"
+                            ? "Alta"
+                            : goal.priority === "medium"
+                              ? "Média"
+                              : "Baixa"}{" "}
+                          prioridade
                         </Badge>
                       </div>
                     </div>
@@ -508,7 +601,11 @@ export default function GoalsPage() {
                     <Button variant="ghost" size="sm">
                       <Edit className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-red-600 hover:text-red-700"
+                    >
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -519,25 +616,37 @@ export default function GoalsPage() {
                   <div>
                     <div className="text-sm text-gray-600">Valor Alvo</div>
                     <div className="text-lg font-semibold">
-                      R$ {goal.targetAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      R${" "}
+                      {goal.targetAmount.toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
                   <div>
                     <div className="text-sm text-gray-600">Valor Atual</div>
                     <div className="text-lg font-semibold text-green-600">
-                      R$ {goal.currentAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      R${" "}
+                      {goal.currentAmount.toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
                   <div>
                     <div className="text-sm text-gray-600">Faltam</div>
                     <div className="text-lg font-semibold text-orange-600">
-                      R$ {remainingAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      R${" "}
+                      {remainingAmount.toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
                   <div>
                     <div className="text-sm text-gray-600">Meta Mensal</div>
                     <div className="text-lg font-semibold text-blue-600">
-                      R$ {goal.monthlyTarget.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      R${" "}
+                      {goal.monthlyTarget.toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                      })}
                     </div>
                   </div>
                 </div>
@@ -554,11 +663,14 @@ export default function GoalsPage() {
                   <div className="flex items-center gap-4 text-sm text-gray-600">
                     <div className="flex items-center gap-1">
                       <Calendar className="h-4 w-4" />
-                      Prazo: {new Date(goal.targetDate).toLocaleDateString('pt-BR')}
+                      Prazo:{" "}
+                      {new Date(goal.targetDate).toLocaleDateString("pt-BR")}
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock className="h-4 w-4" />
-                      {daysRemaining > 0 ? `${daysRemaining} dias restantes` : "Prazo vencido"}
+                      {daysRemaining > 0
+                        ? `${daysRemaining} dias restantes`
+                        : "Prazo vencido"}
                     </div>
                   </div>
                   {progressPercentage >= 100 && (
@@ -590,9 +702,16 @@ export default function GoalsPage() {
         <Card>
           <CardContent className="text-center py-12">
             <Target className="h-16 w-16 mx-auto mb-4 text-blue-600 opacity-50" />
-            <h3 className="text-lg font-semibold mb-2">Nenhuma meta encontrada</h3>
-            <p className="text-gray-600 mb-4">Crie sua primeira meta financeira para começar</p>
-            <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => setIsAddDialogOpen(true)}>
+            <h3 className="text-lg font-semibold mb-2">
+              Nenhuma meta encontrada
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Crie sua primeira meta financeira para começar
+            </p>
+            <Button
+              className="bg-blue-600 hover:bg-blue-700"
+              onClick={() => setIsAddDialogOpen(true)}
+            >
               <PlusCircle className="mr-2 h-4 w-4" />
               Criar Meta
             </Button>

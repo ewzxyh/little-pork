@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   BarChart3,
   Bitcoin,
@@ -15,7 +15,7 @@ import {
   Calendar,
   Calculator,
   Receipt,
-} from "lucide-react"
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -28,10 +28,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarFooter,
-} from "@/components/ui/sidebar"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+} from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navigation = [
   {
@@ -46,7 +46,7 @@ const navigation = [
         title: "Usuários",
         url: "/users",
         icon: Users,
-      }
+      },
     ],
   },
   {
@@ -113,11 +113,11 @@ const navigation = [
         icon: BarChart3,
       },
     ],
-  }
-]
+  },
+];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <Sidebar variant="floating" className="bg-white" {...props}>
@@ -139,7 +139,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       <SidebarContent>
         <div className="px-2 py-2">
-          <Button className="w-full justify-start gap-2 bg-blue-600 hover:bg-blue-700" asChild>
+          <Button
+            className="w-full justify-start gap-2 bg-blue-600 hover:bg-blue-700"
+            asChild
+          >
             <Link href="/transactions/new">
               <PlusCircle className="h-4 w-4" />
               Nova Transação
@@ -156,8 +159,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenu>
                 {group.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton 
-                      asChild 
+                    <SidebarMenuButton
+                      asChild
                       isActive={pathname === item.url}
                       className="w-full justify-start gap-3 data-[active=true]:bg-blue-50 data-[active=true]:text-blue-700 data-[active=true]:border-r-2 data-[active=true]:border-blue-600"
                     >
@@ -194,5 +197,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </div>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

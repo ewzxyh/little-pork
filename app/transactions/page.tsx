@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -52,7 +52,7 @@ const mockTransactions = [
     categoryColor: "#EF4444",
     user: "Enzo",
     type: "expense" as const,
-    amount: 125.50,
+    amount: 125.5,
     account: "Conta Corrente",
   },
   {
@@ -63,7 +63,7 @@ const mockTransactions = [
     categoryColor: "#10B981",
     user: "Letícia",
     type: "income" as const,
-    amount: 2500.00,
+    amount: 2500.0,
     account: "Conta Corrente",
   },
   {
@@ -74,7 +74,7 @@ const mockTransactions = [
     categoryColor: "#9A3412",
     user: "Enzo",
     type: "expense" as const,
-    amount: 18.50,
+    amount: 18.5,
     account: "Cartão de Crédito",
   },
   {
@@ -85,7 +85,7 @@ const mockTransactions = [
     categoryColor: "#9A3412",
     user: "Ambos",
     type: "expense" as const,
-    amount: 27.90,
+    amount: 27.9,
     account: "Conta Corrente",
   },
   {
@@ -96,7 +96,7 @@ const mockTransactions = [
     categoryColor: "#B91C1C",
     user: "Enzo",
     type: "expense" as const,
-    amount: 85.00,
+    amount: 85.0,
     account: "Conta Corrente",
   },
   {
@@ -107,7 +107,7 @@ const mockTransactions = [
     categoryColor: "#059669",
     user: "Letícia",
     type: "income" as const,
-    amount: 350.00,
+    amount: 350.0,
     account: "Conta Corrente",
   },
 ];
@@ -135,25 +135,31 @@ export default function TransactionsPage() {
     user: "",
     type: "expense" as "income" | "expense",
     account: "Conta Corrente",
-    date: new Date().toISOString().split('T')[0],
+    date: new Date().toISOString().split("T")[0],
   });
 
   const filteredTransactions = mockTransactions.filter((transaction) => {
-    const matchesSearch = transaction.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         transaction.category.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "all" || transaction.category === selectedCategory;
-    const matchesUser = selectedUser === "all" || transaction.user === selectedUser;
-    const matchesType = selectedType === "all" || transaction.type === selectedType;
-    
+    const matchesSearch =
+      transaction.description
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      transaction.category.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "all" || transaction.category === selectedCategory;
+    const matchesUser =
+      selectedUser === "all" || transaction.user === selectedUser;
+    const matchesType =
+      selectedType === "all" || transaction.type === selectedType;
+
     return matchesSearch && matchesCategory && matchesUser && matchesType;
   });
 
   const totalIncome = filteredTransactions
-    .filter(t => t.type === "income")
+    .filter((t) => t.type === "income")
     .reduce((sum, t) => sum + t.amount, 0);
 
   const totalExpenses = filteredTransactions
-    .filter(t => t.type === "expense")
+    .filter((t) => t.type === "expense")
     .reduce((sum, t) => sum + t.amount, 0);
 
   const handleAddTransaction = () => {
@@ -167,7 +173,7 @@ export default function TransactionsPage() {
       user: "",
       type: "expense",
       account: "Conta Corrente",
-      date: new Date().toISOString().split('T')[0],
+      date: new Date().toISOString().split("T")[0],
     });
   };
 
@@ -197,10 +203,10 @@ export default function TransactionsPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="type">Tipo</Label>
-                  <Select 
-                    value={newTransaction.type} 
-                    onValueChange={(value: "income" | "expense") => 
-                      setNewTransaction({...newTransaction, type: value})
+                  <Select
+                    value={newTransaction.type}
+                    onValueChange={(value: "income" | "expense") =>
+                      setNewTransaction({ ...newTransaction, type: value })
                     }
                   >
                     <SelectTrigger>
@@ -214,9 +220,11 @@ export default function TransactionsPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="user">Usuário</Label>
-                  <Select 
-                    value={newTransaction.user} 
-                    onValueChange={(value) => setNewTransaction({...newTransaction, user: value})}
+                  <Select
+                    value={newTransaction.user}
+                    onValueChange={(value) =>
+                      setNewTransaction({ ...newTransaction, user: value })
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Selecione o usuário" />
@@ -231,13 +239,18 @@ export default function TransactionsPage() {
                   </Select>
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="description">Descrição</Label>
                 <Input
                   id="description"
                   value={newTransaction.description}
-                  onChange={(e) => setNewTransaction({...newTransaction, description: e.target.value})}
+                  onChange={(e) =>
+                    setNewTransaction({
+                      ...newTransaction,
+                      description: e.target.value,
+                    })
+                  }
                   placeholder="Ex: Supermercado, Salário..."
                 />
               </div>
@@ -250,7 +263,12 @@ export default function TransactionsPage() {
                     type="number"
                     step="0.01"
                     value={newTransaction.amount}
-                    onChange={(e) => setNewTransaction({...newTransaction, amount: e.target.value})}
+                    onChange={(e) =>
+                      setNewTransaction({
+                        ...newTransaction,
+                        amount: e.target.value,
+                      })
+                    }
                     placeholder="0,00"
                   />
                 </div>
@@ -260,29 +278,36 @@ export default function TransactionsPage() {
                     id="date"
                     type="date"
                     value={newTransaction.date}
-                    onChange={(e) => setNewTransaction({...newTransaction, date: e.target.value})}
+                    onChange={(e) =>
+                      setNewTransaction({
+                        ...newTransaction,
+                        date: e.target.value,
+                      })
+                    }
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="category">Categoria</Label>
-                <Select 
-                  value={newTransaction.category} 
-                  onValueChange={(value) => setNewTransaction({...newTransaction, category: value})}
+                <Select
+                  value={newTransaction.category}
+                  onValueChange={(value) =>
+                    setNewTransaction({ ...newTransaction, category: value })
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione a categoria" />
                   </SelectTrigger>
                   <SelectContent>
                     {mockCategories
-                      .filter(cat => cat.type === newTransaction.type)
+                      .filter((cat) => cat.type === newTransaction.type)
                       .map((category) => (
                         <SelectItem key={category.id} value={category.name}>
                           <div className="flex items-center gap-2">
-                            <div 
-                              className="category-dot" 
-                              style={{'--category-color': category.color} as React.CSSProperties}
+                            <div
+                              className="w-3 h-3 rounded-full"
+                              style={{ backgroundColor: category.color }}
                             />
                             {category.name}
                           </div>
@@ -292,10 +317,14 @@ export default function TransactionsPage() {
                 </Select>
               </div>
 
-              <Button 
-                onClick={handleAddTransaction} 
+              <Button
+                onClick={handleAddTransaction}
                 className="w-full bg-blue-600 hover:bg-blue-700"
-                disabled={!newTransaction.description || !newTransaction.amount || !newTransaction.category}
+                disabled={
+                  !newTransaction.description ||
+                  !newTransaction.amount ||
+                  !newTransaction.category
+                }
               >
                 Adicionar Transação
               </Button>
@@ -308,30 +337,42 @@ export default function TransactionsPage() {
       <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total de Receitas</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total de Receitas
+            </CardTitle>
             <TrendingUp className="h-4 w-4 text-green-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">
-              R$ {totalIncome.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+              R${" "}
+              {totalIncome.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+              })}
             </div>
             <p className="text-xs text-gray-600">
-              {filteredTransactions.filter(t => t.type === "income").length} transações
+              {filteredTransactions.filter((t) => t.type === "income").length}{" "}
+              transações
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total de Despesas</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Total de Despesas
+            </CardTitle>
             <TrendingDown className="h-4 w-4 text-red-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-red-600">
-              R$ {totalExpenses.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+              R${" "}
+              {totalExpenses.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+              })}
             </div>
             <p className="text-xs text-gray-600">
-              {filteredTransactions.filter(t => t.type === "expense").length} transações
+              {filteredTransactions.filter((t) => t.type === "expense").length}{" "}
+              transações
             </p>
           </CardContent>
         </Card>
@@ -342,10 +383,17 @@ export default function TransactionsPage() {
             <Receipt className="h-4 w-4 text-blue-600" />
           </CardHeader>
           <CardContent>
-            <div className={`text-2xl font-bold ${
-              totalIncome - totalExpenses >= 0 ? 'text-blue-600' : 'text-red-600'
-            }`}>
-              R$ {(totalIncome - totalExpenses).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            <div
+              className={`text-2xl font-bold ${
+                totalIncome - totalExpenses >= 0
+                  ? "text-blue-600"
+                  : "text-red-600"
+              }`}
+            >
+              R${" "}
+              {(totalIncome - totalExpenses).toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+              })}
             </div>
             <p className="text-xs text-gray-600">
               {filteredTransactions.length} transações totais
@@ -376,7 +424,7 @@ export default function TransactionsPage() {
                 />
               </div>
             </div>
-            
+
             <div className="space-y-2">
               <Label>Tipo</Label>
               <Select value={selectedType} onValueChange={setSelectedType}>
@@ -393,7 +441,10 @@ export default function TransactionsPage() {
 
             <div className="space-y-2">
               <Label>Categoria</Label>
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <Select
+                value={selectedCategory}
+                onValueChange={setSelectedCategory}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -461,7 +512,7 @@ export default function TransactionsPage() {
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <Calendar className="h-4 w-4 text-gray-400" />
-                      {new Date(transaction.date).toLocaleDateString('pt-BR')}
+                      {new Date(transaction.date).toLocaleDateString("pt-BR")}
                     </div>
                   </TableCell>
                   <TableCell className="font-medium">
@@ -469,9 +520,9 @@ export default function TransactionsPage() {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      <div 
-                        className="category-dot" 
-                        style={{'--category-color': transaction.categoryColor} as React.CSSProperties}
+                      <div
+                        className="w-3 h-3 rounded-full"
+                        style={{ backgroundColor: transaction.categoryColor }}
                       />
                       {transaction.category}
                     </div>
@@ -483,10 +534,17 @@ export default function TransactionsPage() {
                     {transaction.account}
                   </TableCell>
                   <TableCell className="text-right">
-                    <span className={`font-medium ${
-                      transaction.type === "income" ? "text-green-600" : "text-red-600"
-                    }`}>
-                      {transaction.type === "income" ? "+" : "-"}R$ {transaction.amount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                    <span
+                      className={`font-medium ${
+                        transaction.type === "income"
+                          ? "text-green-600"
+                          : "text-red-600"
+                      }`}
+                    >
+                      {transaction.type === "income" ? "+" : "-"}R${" "}
+                      {transaction.amount.toLocaleString("pt-BR", {
+                        minimumFractionDigits: 2,
+                      })}
                     </span>
                   </TableCell>
                   <TableCell className="text-right">
@@ -494,7 +552,11 @@ export default function TransactionsPage() {
                       <Button variant="ghost" size="sm">
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-red-600 hover:text-red-700"
+                      >
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
@@ -503,12 +565,14 @@ export default function TransactionsPage() {
               ))}
             </TableBody>
           </Table>
-          
+
           {filteredTransactions.length === 0 && (
             <div className="text-center py-8 text-gray-500">
               <Receipt className="h-12 w-12 mx-auto mb-4 opacity-50" />
               <p className="text-lg mb-2">Nenhuma transação encontrada</p>
-              <p className="text-sm">Ajuste os filtros ou adicione uma nova transação</p>
+              <p className="text-sm">
+                Ajuste os filtros ou adicione uma nova transação
+              </p>
             </div>
           )}
         </CardContent>

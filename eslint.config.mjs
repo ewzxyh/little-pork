@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
+import prettier from 'eslint-plugin-prettier';
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
@@ -8,8 +9,16 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.config({
-    extends: ['next/core-web-vitals', 'next/typescript'],
+    extends: ['next', 'prettier'],
   }),
+  {
+    plugins: {
+      prettier,
+    },
+    rules: {
+      'prettier/prettier': 'error',
+    },
+  },
   {
     ignores: [
       '.next/**',

@@ -17,8 +17,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "FinanceCouple - Controle Financeiro para Casal",
-  description: "Aplicação completa de controle financeiro para casais, com gestão de receitas, despesas, metas e investimentos.",
-  keywords: "controle financeiro, casal, orçamento, metas, investimentos, crypto",
+  description:
+    "Aplicação completa de controle financeiro para casais, com gestão de receitas, despesas, metas e investimentos.",
+  keywords:
+    "controle financeiro, casal, orçamento, metas, investimentos, crypto",
 };
 
 export default function RootLayout({

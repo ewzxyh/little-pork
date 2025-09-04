@@ -1,7 +1,7 @@
-import { neon } from '@neondatabase/serverless';
+import { neon } from "@neondatabase/serverless";
 
 if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL must be defined');
+  throw new Error("DATABASE_URL must be defined");
 }
 
 const sql = neon(process.env.DATABASE_URL);
@@ -19,7 +19,7 @@ export interface User {
 export interface Category {
   id: number;
   name: string;
-  type: 'income' | 'expense';
+  type: "income" | "expense";
   color: string;
   icon: string;
   created_at: string;
@@ -30,7 +30,7 @@ export interface Transaction {
   user_id: number;
   category_id: number;
   account_id: number;
-  type: 'income' | 'expense';
+  type: "income" | "expense";
   amount: number;
   description: string;
   date: string;
@@ -68,7 +68,7 @@ export interface Goal {
   current_amount: number;
   target_date: string | null;
   is_shared: boolean;
-  status: 'active' | 'completed' | 'paused';
+  status: "active" | "completed" | "paused";
   created_at: string;
   updated_at: string;
   progress_percentage?: number;
@@ -114,7 +114,7 @@ export async function getUsers(): Promise<User[]> {
 
 export async function getUserById(id: number): Promise<User | null> {
   const result = await sql`SELECT * FROM users WHERE id = ${id}`;
-  return result[0] as User || null;
+  return (result[0] as User) || null;
 }
 
 // Categorias
@@ -123,14 +123,17 @@ export async function getCategories(): Promise<Category[]> {
   return result as Category[];
 }
 
-export async function getCategoriesByType(type: 'income' | 'expense'): Promise<Category[]> {
-  const result = await sql`SELECT * FROM categories WHERE type = ${type} ORDER BY name`;
+export async function getCategoriesByType(
+  type: "income" | "expense",
+): Promise<Category[]> {
+  const result =
+    await sql`SELECT * FROM categories WHERE type = ${type} ORDER BY name`;
   return result as Category[];
 }
 
 // Transações
 export async function getTransactions(limit?: number): Promise<Transaction[]> {
-  const query = limit 
+  const query = limit
     ? sql`
         SELECT t.*, u.name as user_name, c.name as category_name, c.color as category_color, c.icon as category_icon
         FROM transactions t
@@ -146,12 +149,14 @@ export async function getTransactions(limit?: number): Promise<Transaction[]> {
         JOIN categories c ON t.category_id = c.id
         ORDER BY t.date DESC, t.created_at DESC
       `;
-  
+
   const result = await query;
   return result as Transaction[];
 }
 
-export async function getTransactionsByUser(userId: number): Promise<Transaction[]> {
+export async function getTransactionsByUser(
+  userId: number,
+): Promise<Transaction[]> {
   const result = await sql`
     SELECT t.*, c.name as category_name, c.color as category_color, c.icon as category_icon
     FROM transactions t
@@ -162,7 +167,9 @@ export async function getTransactionsByUser(userId: number): Promise<Transaction
   return result as Transaction[];
 }
 
-export async function createTransaction(transaction: Omit<Transaction, 'id' | 'created_at' | 'updated_at'>): Promise<Transaction> {
+export async function createTransaction(
+  transaction: Omit<Transaction, "id" | "created_at" | "updated_at">,
+): Promise<Transaction> {
   const result = await sql`
     INSERT INTO transactions (user_id, category_id, account_id, type, amount, description, date, is_recurring, recurring_frequency)
     VALUES (${transaction.user_id}, ${transaction.category_id}, ${transaction.account_id}, ${transaction.type}, ${transaction.amount}, ${transaction.description}, ${transaction.date}, ${transaction.is_recurring}, ${transaction.recurring_frequency})
@@ -182,7 +189,9 @@ export async function getDebts(): Promise<Debt[]> {
   return result as Debt[];
 }
 
-export async function createDebt(debt: Omit<Debt, 'id' | 'created_at' | 'updated_at'>): Promise<Debt> {
+export async function createDebt(
+  debt: Omit<Debt, "id" | "created_at" | "updated_at">,
+): Promise<Debt> {
   const result = await sql`
     INSERT INTO debts (user_id, description, total_amount, remaining_amount, monthly_payment, remaining_months, interest_rate, due_date, is_shared)
     VALUES (${debt.user_id}, ${debt.description}, ${debt.total_amount}, ${debt.remaining_amount}, ${debt.monthly_payment}, ${debt.remaining_months}, ${debt.interest_rate}, ${debt.due_date}, ${debt.is_shared})
@@ -205,7 +214,9 @@ export async function getGoals(): Promise<Goal[]> {
   return result as Goal[];
 }
 
-export async function createGoal(goal: Omit<Goal, 'id' | 'created_at' | 'updated_at' | 'progress_percentage'>): Promise<Goal> {
+export async function createGoal(
+  goal: Omit<Goal, "id" | "created_at" | "updated_at" | "progress_percentage">,
+): Promise<Goal> {
   const result = await sql`
     INSERT INTO goals (user_id, title, target_amount, current_amount, target_date, is_shared, status)
     VALUES (${goal.user_id}, ${goal.title}, ${goal.target_amount}, ${goal.current_amount}, ${goal.target_date}, ${goal.is_shared}, ${goal.status})
@@ -234,7 +245,10 @@ export async function getMonthlyBills(): Promise<MonthlyBill[]> {
 }
 
 // Analytics e relatórios
-export async function getMonthlyExpensesByCategory(month: number, year: number) {
+export async function getMonthlyExpensesByCategory(
+  month: number,
+  year: number,
+) {
   const result = await sql`
     SELECT 
       c.name,
