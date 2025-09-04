@@ -361,12 +361,12 @@ export default function CryptoPage() {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
                       <div 
-                        className="h-10 w-10 rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: `${crypto.color}20` }}
+                        className="crypto-icon-bg"
+                        style={{'--crypto-color': crypto.color} as React.CSSProperties}
                       >
                         <IconComponent 
-                          className="h-5 w-5" 
-                          style={{ color: crypto.color }}
+                          className="h-5 w-5 crypto-icon" 
+                          style={{'--crypto-color': crypto.color} as React.CSSProperties}
                         />
                       </div>
                       <div>
@@ -437,12 +437,12 @@ export default function CryptoPage() {
               <div key={crypto.id} className="flex items-center justify-between p-4 border rounded-lg">
                 <div className="flex items-center gap-3">
                   <div 
-                    className="h-8 w-8 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: `${crypto.color}20` }}
+                    className="crypto-icon-bg-sm"
+                    style={{'--crypto-color': crypto.color} as React.CSSProperties}
                   >
                     <crypto.icon 
-                      className="h-4 w-4" 
-                      style={{ color: crypto.color }}
+                      className="h-4 w-4 crypto-icon" 
+                      style={{'--crypto-color': crypto.color} as React.CSSProperties}
                     />
                   </div>
                   <div>

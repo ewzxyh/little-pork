@@ -281,8 +281,8 @@ export default function TransactionsPage() {
                         <SelectItem key={category.id} value={category.name}>
                           <div className="flex items-center gap-2">
                             <div 
-                              className="w-3 h-3 rounded-full" 
-                              style={{ backgroundColor: category.color }}
+                              className="category-dot" 
+                              style={{'--category-color': category.color} as React.CSSProperties}
                             />
                             {category.name}
                           </div>
@@ -470,8 +470,8 @@ export default function TransactionsPage() {
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <div 
-                        className="w-3 h-3 rounded-full" 
-                        style={{ backgroundColor: transaction.categoryColor }}
+                        className="category-dot" 
+                        style={{'--category-color': transaction.categoryColor} as React.CSSProperties}
                       />
                       {transaction.category}
                     </div>

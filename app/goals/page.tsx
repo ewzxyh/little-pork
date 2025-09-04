@@ -321,8 +321,9 @@ export default function GoalsPage() {
                   checked={newGoal.isShared}
                   onChange={(e) => setNewGoal({...newGoal, isShared: e.target.checked})}
                   className="rounded border-gray-300"
+                  aria-describedby="shared-goal-description"
                 />
-                <Label htmlFor="isShared" className="text-sm font-normal">
+                <Label htmlFor="isShared" className="text-sm font-normal" id="shared-goal-description">
                   Meta compartilhada do casal
                 </Label>
               </div>

@@ -300,8 +300,9 @@ export default function DebtsPage() {
                   checked={newDebt.isShared}
                   onChange={(e) => setNewDebt({...newDebt, isShared: e.target.checked})}
                   className="rounded border-gray-300"
+                  aria-describedby="shared-description"
                 />
-                <Label htmlFor="isShared" className="text-sm font-normal">
+                <Label htmlFor="isShared" className="text-sm font-normal" id="shared-description">
                   Dívida compartilhada (dividir valor)
                 </Label>
               </div>
